@@ -4,6 +4,7 @@ namespace Ortic\DuckDB;
 
 use Illuminate\Database\Connection;
 use Illuminate\Support\ServiceProvider;
+use Ortic\DuckDB\Console\InstallDdevCommand;
 
 class DuckDBServiceProvider extends ServiceProvider
 {
@@ -14,5 +15,14 @@ class DuckDBServiceProvider extends ServiceProvider
         });
 
         $this->app->bind('db.connector.duckdb', DuckDBConnector::class);
+    }
+
+    public function boot(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                InstallDdevCommand::class,
+            ]);
+        }
     }
 }

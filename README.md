@@ -29,6 +29,38 @@ composer require ortic/laravel-duckdb-pdo
 The service provider is auto-discovered. It registers the `duckdb` database
 driver.
 
+> This package **requires** the `pdo_duckdb` extension (declared as
+> `ext-pdo_duckdb`), so `composer require` will refuse to install until the
+> extension is present in your runtime. See the DDEV section below to build it
+> into a container.
+
+## DDEV
+
+DDEV's web image doesn't ship `pdo_duckdb`, so it has to be compiled into the
+container. Because a Composer package cannot install a PHP extension (and this
+package won't even install without it), setting up the image is a **bootstrap
+step that runs before `composer require`**.
+
+Fetch the web-build Dockerfile straight from the extension repo and rebuild:
+
+```bash
+mkdir -p .ddev/web-build
+curl -fsSL https://raw.githubusercontent.com/ortic/php-pdo-duckdb/main/examples/ddev/web-build/Dockerfile \
+  -o .ddev/web-build/Dockerfile
+ddev restart          # builds pdo_duckdb into the web image
+ddev composer require ortic/laravel-duckdb-pdo
+```
+
+Once the package is installed, you can regenerate that Dockerfile any time with:
+
+```bash
+php artisan duckdb:install-ddev          # --force to overwrite an existing one
+```
+
+(The artisan command is a convenience for re-scaffolding; the `curl` step above
+is what bootstraps a project from scratch, since the extension must exist before
+the package can be installed.)
+
 ## Configuration
 
 Add a connection to `config/database.php`:
