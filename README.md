@@ -1,4 +1,4 @@
-# laravel-duckdb
+# laravel-duckdb-pdo
 
 A [DuckDB](https://duckdb.org) database driver for Laravel, backed by the native
 [`pdo_duckdb`](https://github.com/ortic/php-pdo-duckdb) PHP extension.
@@ -23,7 +23,7 @@ DuckDB is a capable analytical store.
 ## Installation
 
 ```bash
-composer require ortic/laravel-duckdb
+composer require ortic/laravel-duckdb-pdo
 ```
 
 The service provider is auto-discovered. It registers the `duckdb` database

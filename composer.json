@@ -1,5 +1,5 @@
 {
-    "name": "ortic/laravel-duckdb",
+    "name": "ortic/laravel-duckdb-pdo",
     "description": "DuckDB database driver for Laravel, backed by the native pdo_duckdb extension.",
     "keywords": ["laravel", "duckdb", "database", "pdo"],
     "license": "MIT",
